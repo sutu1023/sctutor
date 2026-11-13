@@ -1,0 +1,12 @@
+**
+!pyproject.toml
+!uv.lock
+!src/
+!src/sctutor/
+!src/sctutor/*.py
+!src/sctutor/rules/
+!src/sctutor/rules/*.md
+!src/sctutor/static/
+!src/sctutor/static/*.js
+!src/sctutor/static/*.css
+!src/sctutor/static/*.html

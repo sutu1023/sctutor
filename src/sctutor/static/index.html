@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC-Tutor · 课程引导辅导</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/roles.css"><link rel="stylesheet" href="/static/product.css"><link rel="stylesheet" href="/static/materials.css"><link rel="stylesheet" href="/static/experience.css"></head>
+<body class="logged-out">
+<section id="login-screen" aria-labelledby="login-title">
+  <div class="login-card"><span class="logo">SC</span><h1 id="login-title">SC-Tutor · 选择演示账号</h1>
+  <p>教师管理课程，学生专注学习。</p><div class="login-options">
+  <button id="login-teacher" class="primary">教师演示 · 一键登录</button>
+  <button id="login-student">学生演示 · 一键登录</button></div>
+  <p id="login-notice" role="status"></p><p class="muted">仅限本机演示，非生产身份系统。课件与发布题库共享，学习记录按账号独立保存。</p></div>
+</section>
+<aside class="sidebar">
+  <div class="brand"><span class="logo">SC</span><div><strong>SC-Tutor</strong><small>课程课件 · 引导式辅导</small></div></div>
+  <div class="identity-bar"><strong id="identity-name"></strong><button id="logout">退出 / 切换账号</button></div>
+  <nav id="features" aria-label="功能导航"><button data-view="dashboard" hidden>班级概览</button><button data-view="policy" hidden>辅导策略</button><button data-view="questions" hidden>题目审核</button><button data-view="admin" hidden>课件管理</button><button data-view="tutor">答疑</button><button data-view="review">复习</button><button data-view="quiz">小测</button><button data-view="report">学习报告</button></nav>
+  <details class="course-menu"><summary>课程课件 / 专题</summary><nav id="course-navigation" aria-label="课程课件"></nav></details>
+  <button id="new-session" class="primary">＋ 新建会话</button>
+  <h2>我的会话</h2><input id="session-search" type="search" maxlength="120" placeholder="搜索名称或问题" aria-label="搜索会话">
+  <button id="delete-selected">删除选中会话</button><p id="session-notice" role="status"></p>
+  <nav id="sessions" aria-label="历史会话"></nav>
+  <dialog id="session-dialog" aria-labelledby="session-dialog-title"><h2 id="session-dialog-title"></h2>
+    <input id="session-name" maxlength="120" aria-label="会话名称"><p id="session-dialog-notice" role="status"></p>
+    <div class="actions"><button id="session-cancel">取消</button><button id="session-confirm" class="primary">确认</button></div>
+  </dialog>
+  <div class="privacy">仅本机运行 · 历史本地保存<br>问题与证据片段将发送到云端模型<br>联网由教师开启，外部来源单独标记</div>
+</aside>
+<main>
+ <section id="tutor-view">
+  <header><div><span class="eyebrow">SOFTWARE CONSTRUCTION</span><h1>答疑</h1></div><span id="health" class="badge">连接中</span></header>
+  <div class="ladder" aria-label="提示阶梯"><span data-level="1">L1 追问</span><span data-level="2">L2 概念</span><span data-level="3">L3 课件</span><span data-level="4">L4 步骤</span><span data-level="5">L5 完整解答</span></div>
+  <section id="messages" aria-live="polite"><div class="empty"><h2>从一个真实困惑开始</h2><p>例如：GitHub Copilot 支持哪些开发环境？</p><p>先说说你的理解。需要更多帮助时，再逐级增加提示。</p></div></section>
+  <button id="latest-answer" type="button" hidden>查看最新回答</button>
+  <section id="turn-feedback" aria-label="最新回答操作"><p id="level-description" class="muted"></p><div class="actions"><button type="button" id="think" disabled>我再想想</button><button type="button" id="upgrade" disabled>再给一点提示</button><button type="button" id="understood" disabled>我懂了</button></div><p id="feedback-reason" class="muted" role="status"></p></section>
+  <section class="composer"><div id="notice" role="status">回答通过独立检查后才会展示；这不保证绝对没有错误。</div>
+    <form id="question-form"><label for="question">你的问题</label><textarea id="question" maxlength="4000" rows="3" placeholder="描述你的问题，或写下你已经尝试的思路……" required></textarea>
+    <div class="actions"><select id="action" aria-label="问题类型"><option value="ask">新问题（自适应 L1 / L2）</option><option value="ask-l1">新问题（从L1完整阶梯开始）</option><option value="followup">继续当前问题（保持级别）</option></select><button id="send" class="primary" type="submit">发送</button></div></form>
+    <p id="question-mode-help" class="muted">新问题开始独立提示阶梯；继续当前问题不会自动升级。</p>
+    <div class="actions recovery-controls"><span id="wait-elapsed" role="status"></span><button id="stop-waiting" type="button" hidden>停止等待</button><button id="recover-turn" type="button" hidden>刷新本轮状态</button><button id="retry-turn" type="button" hidden>确认重试本轮</button></div>
+    <p id="recovery-help" class="muted" hidden>停止等待会关闭本次接收连接，不保证供应商已停止处理或免计费。断线后请先刷新本轮状态，不会自动重发。</p>
+  </section>
+ </section>
+ <section id="workspace" hidden aria-live="polite"></section>
+</main>
+<aside class="preview"><section id="turn-context" aria-label="本轮学习上下文"></section><div class="preview-header"><h2>课件原页</h2><button id="close-preview" aria-label="清空预览">清空</button></div><p class="muted">L1 / L2 只显示出处；L3–L5 可打开授权资料。相邻页与整份PDF仍受教师策略限制。原页和图片说明需先在管理页处理；小测作答期间禁止通用预览。</p><h3 id="preview-title">尚未打开课件页</h3><img id="preview-image" alt="当前引用课件原页" hidden><pre id="preview-text">回答中的出处可帮助你核对依据。提示检查并非绝对可靠，请结合课程资料判断。</pre></aside>
+<script src="/static/experience.js" defer></script>
+<script src="/static/question-editor.js" defer></script>
+<script src="/static/app.js" defer></script>
+<script src="/static/learning.js" defer></script>
+<script src="/static/preview.js" defer></script>
+<script src="/static/report.js" defer></script>
+<script src="/static/admin.js" defer></script>
+<script src="/static/dashboard.js" defer></script>
+</body></html>
